@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： mysql.zhjlfx.cn
--- 生成日期： 2020-08-28 20:09:00
+-- 生成日期： 2020-08-28 20:39:29
 -- 服务器版本： 10.3.17-MariaDB
 -- PHP 版本： 5.6.40
 
@@ -19,8 +19,22 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- 数据库： `ucenter`
+-- 数据库： `minecraft`
 --
+CREATE DATABASE IF NOT EXISTS `minecraft` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+USE `minecraft`;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `chkname`
+--
+
+DROP TABLE IF EXISTS `chkname`;
+CREATE TABLE `chkname` (
+  `uuid` varchar(50) DEFAULT NULL,
+  `playername` varchar(30) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -53,6 +67,53 @@ CREATE TABLE `users` (
 -- --------------------------------------------------------
 
 --
+-- 表的结构 `sessions`
+--
+
+DROP TABLE IF EXISTS `sessions`;
+CREATE TABLE `sessions` (
+  `server_id` varchar(255) NOT NULL,
+  `acc_token` varchar(255) DEFAULT NULL,
+  `ipaddr` varchar(20) DEFAULT NULL,
+  `o_time` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `texturedata`
+--
+
+DROP TABLE IF EXISTS `texturedata`;
+CREATE TABLE `texturedata` (
+  `tid` int(10) NOT NULL,
+  `skin_hash` varchar(255) DEFAULT NULL,
+  `cape_hash` varchar(255) DEFAULT NULL,
+  `model` varchar(255) NOT NULL,
+  `playername` varchar(30) DEFAULT NULL,
+  `uuid` varchar(50) DEFAULT NULL,
+  `time` int(10) NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- 表的结构 `tokens`
+--
+
+DROP TABLE IF EXISTS `tokens`;
+CREATE TABLE `tokens` (
+  `acc_token` varchar(50) NOT NULL,
+  `cli_token` varchar(50) NOT NULL,
+  `profile` varchar(50) DEFAULT NULL,
+  `ptime` timestamp NULL DEFAULT current_timestamp(),
+  `state` int(1) NOT NULL DEFAULT 1,
+  `owner_uuid` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 ROW_FORMAT=DYNAMIC;
+
+-- --------------------------------------------------------
+
+--
 -- 表的结构 `vailtoken`
 --
 
@@ -68,6 +129,13 @@ CREATE TABLE `vailtoken` (
 --
 
 --
+-- 表的索引 `chkname`
+--
+ALTER TABLE `chkname`
+  ADD UNIQUE KEY `uuid` (`uuid`),
+  ADD UNIQUE KEY `playername` (`playername`);
+
+--
 -- 表的索引 `users`
 --
 ALTER TABLE `users`
@@ -75,6 +143,24 @@ ALTER TABLE `users`
   ADD UNIQUE KEY `username` (`username`),
   ADD UNIQUE KEY `userid` (`userid`),
   ADD KEY `email` (`email`);
+
+--
+-- 表的索引 `sessions`
+--
+ALTER TABLE `sessions`
+  ADD PRIMARY KEY (`server_id`) USING BTREE;
+
+--
+-- 表的索引 `texturedata`
+--
+ALTER TABLE `texturedata`
+  ADD PRIMARY KEY (`tid`);
+
+--
+-- 表的索引 `tokens`
+--
+ALTER TABLE `tokens`
+  ADD PRIMARY KEY (`acc_token`) USING BTREE;
 
 --
 -- 表的索引 `vailtoken`
@@ -91,6 +177,12 @@ ALTER TABLE `vailtoken`
 --
 ALTER TABLE `users`
   MODIFY `uid` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- 使用表AUTO_INCREMENT `texturedata`
+--
+ALTER TABLE `texturedata`
+  MODIFY `tid` int(10) NOT NULL AUTO_INCREMENT;
 
 --
 -- 使用表AUTO_INCREMENT `vailtoken`
