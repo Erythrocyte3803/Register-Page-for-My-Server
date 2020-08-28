@@ -25,5 +25,5 @@ if (!chkreginfo::chkname($username)) {
     $uuid = UUID::getUserUuid($username);
     $regip = $_SERVER['REMOTE_ADDR'];
     $db->creUser($username,$saltedpass,$email,$regip,$salt,$userid,$uuid);
-    echo '<script>alert("注册成功！点击 “确定” 继续");window.open("https://user.zhjlfx.cn/url.html")</script>';
+    echo '<script>alert("注册成功！点击 “确定” 继续");parent.location.href="https://user.zhjlfx.cn/url.html"</script>';
 }

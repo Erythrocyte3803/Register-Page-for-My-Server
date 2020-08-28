@@ -24,8 +24,9 @@ class MojangReg {
         $data_json = json_decode($result,true);
         $pid = $data_json['user']['id'];
         $puuid = $data_json['selectedProfile']['id'];
-        if ($pid != '' && $puuid != '') {
-            return array($pid,$puuid);
+        $pname = $data_json['selectedProfile']['name'];
+        if ($pid != '' && $puuid != '' && $pname != '') {
+            return array($pid,$puuid,$pname);
         } else {
             return false;
         }

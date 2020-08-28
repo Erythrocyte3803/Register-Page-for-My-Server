@@ -1,4 +1,7 @@
-<!DOCTYPE html>
+<?php
+$token = $_GET['token'];
+$email = $_GET['email'];
+echo '<!DOCTYPE html>
 <html>
     
     <head>
@@ -6,7 +9,7 @@
         <meta http-equiv="Pragma" content="no-cache">
         <meta http-equiv="Cache-Control" content="no-cache">
         <meta http-equiv="Expires" content="0">
-        <title>使用Minecraft国际正版账号登录</title>
+        <title>设置用户名</title>
         <link href="css/login.css" type="text/css" rel="stylesheet">
         <script src="https://static.zhjlfx.cn/js/jquery-1.11.0.min.js" type="text/javascript"></script>
         <script src="https://static.zhjlfx.cn/src/jquery.dialog.js"></script>
@@ -16,20 +19,21 @@
     
     <body>
         <div class="login">
-            <div class="message">加入 九境尘域 & 综合资源分享网</div>
+            <div class="message">设置用户名(请在5分钟内完成)</div>
             <div id="darkbannerwrap"></div>
-            <form action="mojang.php" method="post" target="result">
+            <form action="newname.php" method="post" target="result">
                 <input name="action" value="login" type="hidden">
-                <input name="email" placeholder="Minecraft正版邮箱" required="" type="email">
+                <input name="token" placeholder="Token" required="" type="text" value="'.$token.'" readonly="readonly" style="display:none">
                 <hr class="hr15">
-                <input name="pass" placeholder="Minecraft正版密码" required="" type="password">
+                <input name="email" placeholder="邮箱" required="" type="email" value="'.$email.'" readonly="readonly" style="display:none">
+                <hr class="hr15">
+                <input name="username" placeholder="用户名" required="" type="text">
                 <hr class="hr15">
                 <!--<input name="password" placeholder="密码" required="" type="password">
 
 		<hr class="hr15">-->
-                <input value="登录" style="width:100%;" type="submit">
+                <input value="提交" style="width:100%;" type="submit">
                 <hr class="hr20">
-                <input value="已有账号/已注册完成?" style="width:100%;" type="button" onclick="window.location.href='https://user.zhjlfx.cn/url.html'">
                 <!--<hr class="hr20">
                 <a href="https://user.zhjlfx.cn/repass.html">忘记密码</a>-->
             </form>
@@ -39,4 +43,4 @@
         </div>
     </body>
 
-</html>
+</html>';
